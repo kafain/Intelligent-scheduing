@@ -10,9 +10,11 @@ import lombok.Data;
  */
 @Data
 public class Preference {
-    private int id;
+    private String type;
 
-    private String name;
+    //员工id
+    private Long staffId;
 
-    private int type;
+    //偏好值
+    private String value;
 }

@@ -11,7 +11,7 @@ import com.example.intelligentscheduling.entity.Staff;
 import java.util.List;
 
 public interface ShopService extends IService<Shop> {
-    List<Staff> selectAllStaffById(int id);
+    List<Staff> selectAllStaffById(Long id);
 
     R insert(Staff staff);
 }

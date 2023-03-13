@@ -25,11 +25,11 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements Sh
      * @return
      */
     @Override
-    public List<Staff> selectAllStaffById(int id) {
-        LambdaQueryWrapper<Staff> law = new LambdaQueryWrapper<>();
-        law.eq(Staff::getShopId,id);
+    public List<Staff> selectAllStaffById(Long id) {
+        LambdaQueryWrapper<Staff> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Staff::getShopId,id);
 
-        List<Staff> StaffList = staffService.list(law);
+        List<Staff> StaffList = staffService.list(queryWrapper);
         return StaffList;
     }
 
