@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8079
 spring:
   application:
     #???????
@@ -18,3 +18,5 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: ASSIGN_ID
+scheduling:
+  path: D:\imgs\

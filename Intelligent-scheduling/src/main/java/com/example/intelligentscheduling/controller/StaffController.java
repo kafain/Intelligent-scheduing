@@ -15,6 +15,7 @@ import com.example.intelligentscheduling.service.StaffService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,6 @@ public class StaffController {
 
     /**
      *  添加员工
-     * @param: request
      * @param: staff{id,name,emai,position,shopName}
      * @return R<String>
      **/
@@ -107,7 +107,7 @@ public class StaffController {
     /**
      *  根据id查询员工信息
      * @param: id
-     * @return R<Employee>
+     * @return R<Staff>
      **/
     @GetMapping("/{id}")
     public R<Staff> getById(@PathVariable Long id){
@@ -119,19 +119,23 @@ public class StaffController {
     }
 
     /**
-     *  根据id删除员工
+     *  根据id删除员工，同时删除员工偏好信息
      * @param: id
      * @return R<String>
      **/
     @DeleteMapping("/{id}")
+    @Transactional
     public R<String> delete(@PathVariable Long id){
 
         boolean loop = staffService.removeById(id);
+        LambdaQueryWrapper<Preference> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Preference::getStaffId,id);
+        preferenceService.remove(queryWrapper);
 
         if(!loop){
             return R.error("删除员工失败");
         }
-        return R.success("新增员工成功");
+        return R.success("删除员工成功");
     }
 
 }
